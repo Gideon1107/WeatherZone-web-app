@@ -26,7 +26,7 @@ app.post("/search", async (req, res) => {
 
         const lat = geoResponse.data[0]["lat"];
         const lon = geoResponse.data[0]["lon"];
-        console.log(lat, lon);
+        // console.log(lat, lon);
 
         try {
             const weatherParams = {
@@ -38,16 +38,9 @@ app.post("/search", async (req, res) => {
             const weatherResponse = await axios.get(WEATHER_API_URL, {params: weatherParams});
             const data = weatherResponse.data;
             const time = new Date();
-            var day = "";
-            if (time > 12) {
-                day = "PM";
-            } else {
-                day = "AM";
-            }
             res.render("index.ejs", {
                 data: data,
                 time: time,
-                dayType: day
             });
         } catch(error) {
             console.log(error.response.data);
@@ -56,10 +49,12 @@ app.post("/search", async (req, res) => {
     } catch(error) {
         // console.log(error.response.data);
         res.status(500);
-        res.render("index.ejs", {error: "No city found by that entry. Please try again with a different city"})
+        res.render("index.ejs", {error: "No city found by that entry. Please try again with a different city."})
     }
     // console.log(req.body.query);
     // res.render("index.ejs")
+   
+    
 });
 
 app.listen(port, () => {

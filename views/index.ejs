@@ -73,9 +73,10 @@
                         <h1>Good Evening</h1>
                     <% } %>
                     
-                    <h2> <%= time.getHours() %>:<% if (time.getMinutes() < 10) {%>0<%= time.getMinutes() %>
-                    <% } else { %><%= time.getMinutes() %>
+                    <h2> <% if (time.getHours() < 10) { %>0<%= time.getHours() %><% } else { %><%= time.getHours() %><%}%>:<% if (time.getMinutes() < 10) { %>0<%= time.getMinutes() %>
+                    <% } else { %><%= time.getMinutes() %> 
                     <% } %></h2>
+
                 </div>
 
                 <div class="hourly">
