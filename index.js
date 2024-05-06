@@ -32,7 +32,8 @@ app.post("/search", async (req, res) => {
             const weatherParams = {
                 lat: lat,
                 lon: lon,
-                appid: "287c09b3cea989a71939eb3692e22768"
+                appid: "287c09b3cea989a71939eb3692e22768",
+                units: "metric"
             };
             const weatherResponse = await axios.get(WEATHER_API_URL, {params: weatherParams});
             const data = weatherResponse.data;

@@ -19,18 +19,12 @@
 
     <div class="search-container">
         <form id="searchForm" action="/search" method="post">
-            <input type="text" id="searchInput" name="query" placeholder="Enter a City">
+            <input type="text" id="searchInput" name="query" placeholder="Enter a City" autocomplete="off">
             <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
     </div>
 
-    <!-- <h1>
-        = data.list[0].dt_txt
-    </h1> -->
 
-    <!-- <h1>
-        <%- new Date().getDate() %>.<%- new Date().getMonth() + 1 %>.<%- new Date().getFullYear() %>
-    </h1> -->
 
     <% if (locals.error) { %>
         <div class="error">
@@ -45,23 +39,24 @@
                 </div>
 
                 <div class="weather-details">
-                    <h1>20&deg;C</h1>
-                    <h3>Cloudy</h3>
+                    <img src="https://openweathermap.org/img/wn/<%= data.list[0].weather[0].icon %>@2x.png" alt="weather icon">
+                    <h1> <%= Math.round(data.list[0].main.temp) %>&deg;C</h1>
+                    <h3><%= data.list[0].weather[0].description %></h3>
                 </div>
             
                 <div class="weather-descriptions">
                     <div>
-                        <h1>21°C</h1>
+                        <h1><%= Math.round(data.list[0].main.temp_max) %>&deg;C</h1>
                         <h3><i class="fa-solid fa-temperature-high"></i> Max Temp</h3>
                     </div>
 
                     <div>
-                        <h1>11°C</h1>
+                        <h1><%= Math.round(data.list[0].main.temp_min) %>&deg;C</h1>
                         <h3><i class="fa-solid fa-temperature-low"></i> Min Temp</h3>
                     </div>
 
                     <div>
-                        <h1>21°C</h1>
+                        <h1><%= Math.round(data.list[0].main.feels_like) %>&deg;C</h1>
                         <h3><i class="fa-solid fa-temperature-half"></i> Feels like</h3>
                     </div>
                 </div>
@@ -78,47 +73,22 @@
                         <h1>Good Evening</h1>
                     <% } %>
                     
-                    <h2> <%= time.getHours() %>:<%= time.getMinutes() %> <%= dayType %></h2>
+                    <h2> <%= time.getHours() %>:<% if (time.getMinutes() < 10) {%>0<%= time.getMinutes() %>
+                    <% } else { %><%= time.getMinutes() %>
+                    <% } %></h2>
                 </div>
 
                 <div class="hourly">
-                    <h1>Hourly Forcast</h1>
+                    <h1>3-Hourly Forcast</h1>
                     <div class="hourly-forcast">
-                        <div class="hourly-item">
-                            <h1>1 PM</h1>
-                            <h2>20&deg;</h2>
-                            <h3>Cloudy</h3>
-                        </div>
+                        <% data.list.slice(1,7).forEach(weather => { %>
+                            <div class="hourly-item">
+                                <h1><%= weather.dt_txt.split(" ")[1].split(":")[0] %>:<%= weather.dt_txt.split(" ")[1].split(":")[1] %></h1>
+                                <h2><%= Math.round(weather.main.temp) %>&deg;C</h2>
+                                <h3><%= weather.weather[0].description %></h3>
+                            </div>
+                         <% }); %>
 
-                        <div class="hourly-item">
-                            <h1>2 PM</h1>
-                            <h2>20&deg;</h2>
-                            <h3>Cloudy</h3>
-                        </div>
-
-                        <div class="hourly-item">
-                            <h1>3 PM</h1>
-                            <h2>20&deg;</h2>
-                            <h3>Cloudy</h3>
-                        </div>
-
-                        <div class="hourly-item">
-                            <h1>4 PM</h1>
-                            <h2>20&deg;</h2>
-                            <h3>Cloudy</h3>
-                        </div>
-
-                        <div class="hourly-item">
-                            <h1>5 PM</h1>
-                            <h2>20&deg;</h2>
-                            <h3>Cloudy</h3>
-                        </div>
-
-                        <div class="hourly-item">
-                            <h1>6 PM</h1>
-                            <h2>20&deg;</h2>
-                            <h3>Cloudy</h3>
-                        </div>
                     </div>
                 </div>
 
