@@ -22,8 +22,8 @@ app.post("/search", async (req, res) => {
     try {
         const response = await axios.get(GEO_API_URL, {params: params});
 
-        const result = response.data;
-        console.log(result[0]["lat"]);
+        const result = response.data[0]["lat"];
+        console.log(result);
 
     //     res.render("index.ejs", {
     //         secret: result.secret,
