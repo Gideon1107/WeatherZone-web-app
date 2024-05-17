@@ -38,6 +38,7 @@ app.post("/search", async (req, res) => {
             const weatherResponse = await axios.get(WEATHER_API_URL, {params: weatherParams});
             const data = weatherResponse.data;
             const time = new Date();
+            // console.log(JSON.stringify(data));
             res.render("index.ejs", {
                 data: data,
                 time: time,
